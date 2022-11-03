@@ -2,6 +2,7 @@ const express = require('express')
 require('dotenv').config()
 const { dbConnection } = require('../database/config')
 const cors = require('cors')
+const { socketController } = require('../sockets/controller');
 
 class Server {
     constructor() {
@@ -46,23 +47,9 @@ class Server {
     }
 
     sockets(){
-        this.io.on('connection', socket => {
-            console.log('Cliente conectado', socket.id);
-
-            socket.on('mensaje-de-cliente', ( payload, callback ) => {
-                console.log( payload );
-
-                callback('Tu mensaje fue recibido');
-
-                payload.from = 'desde el server'
-                this.io.emit('mensaje-de-server', payload);
-                // this.io
-            })
-
-            socket.on('disconnect', () =>{
-                console.log('Cliente desconectado');
-            })
-        })
+        this.io.on(
+            'connection',
+            socket => socketController(socket, this.io))
     }
 
     listen() {
