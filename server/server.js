@@ -14,6 +14,7 @@ class Server {
 
         this.paths = {
             auth: '/api/auth',
+            equipos: '/api/equipos',
             task: '/api/task',
         }
 
@@ -44,6 +45,8 @@ class Server {
         // rutas
         this.app.use( this.paths.auth, require('../routes/auth'))
         this.app.use( this.paths.task, require('../routes/task'))
+        this.app.use( this.paths.equipos, require('../routes/equipos'))
+
     }
 
     sockets(){

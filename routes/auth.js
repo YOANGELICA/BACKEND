@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router();
 const { check } = require('express-validator');
-const { crearUsuario, loginUsuario, revalidarToken } = require('../controllers/auth')
+const { crearUsuario, loginUsuario, revalidarToken, mostrarPerfil } = require('../controllers/auth')
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-token');
 
-router.post('/', loginUsuario)
+router.post('/login', loginUsuario)
 
 router.post(
     '/new', 
@@ -18,5 +18,6 @@ router.post(
     crearUsuario )
     
 router.get('/renew', validarJWT, revalidarToken)
+router.get('/show', validarJWT, mostrarPerfil)
 
 module.exports = router;

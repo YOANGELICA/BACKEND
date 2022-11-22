@@ -16,8 +16,8 @@ const validarJWT = (req, res = response, next) => {
             process.env.SECRET_JWT_SEED
         )
 
-        require.uid = uid
-        require.name = name
+        req.uid = uid
+        req.name = name
         
     } catch (error) {
         return res.sendStatus(401).json({

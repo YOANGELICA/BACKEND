@@ -13,7 +13,19 @@ const UsuarioSchema = Schema({
     password: {
         type: String,
         require: true
+        },
+    role: {
+        type: String,
+        require: true
         }
     });
 
+UsuarioSchema.method('toJSON', function() {
+    const { __v, _id, ...object } = this.toObject();
+    object.id = _id;
+    return object;
+})
+
 module.exports = model('Usuario', UsuarioSchema);
+
+
